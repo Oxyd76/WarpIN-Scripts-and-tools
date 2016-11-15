@@ -1,0 +1,2 @@
+lswhook.dll
+lswhook.sym

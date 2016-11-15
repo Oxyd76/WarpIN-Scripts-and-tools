@@ -1,0 +1,8 @@
+lswidget.dll
+lswidget.sym
+lswitch.hlp
+lswresCZ.dll
+lswresDE.dll
+lswresEN.dll
+lswresES.dll
+lswresRU.dll

@@ -1,0 +1,11 @@
+COPYING
+History
+lSwitch.exe
+lswitch.hlp
+lSwitch.sym
+lSwitch.xqs
+lSwitchd.exe
+lswresEN.dll
+Readme
+readme.v270
+readme.v271
