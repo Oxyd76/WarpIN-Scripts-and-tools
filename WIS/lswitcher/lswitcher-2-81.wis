@@ -1,25 +1,43 @@
-
-<!-- This is a sample WarpIn installation profile. -->
-
 <WARPIN VERSION="0.9.20">
 
-<!-- Every .WPI archive contains one or more packages. -->
-
+<!-- Find path to X(E)Workplace widgets directory -->
 <HEAD>
+<REXX NAME="XWPpath">
+  Return Strip(SysIni('User', 'XWorkplace', 'XFolderPath'), 'T',X2C(0))'\PLUGINS\XCENTER'
+</REXX>
+
+<!-- Find DLL directory ?:\ECS\DLL for eCS or ?:\OS2\APPS\DLL for classic OS/2 Warp -->
+<REXX NAME="HookPath">
+  Call RxFuncAdd 'SysLoadFuncs', 'RexxUtil', 'SysLoadFuncs'
+  Call SysLoadFuncs
+  BootDrive=GetBDrive()':\'
+  Call SysFileTree BootDrive'ECS', 'Ecs', 'DO'
+  If Ecs.0=0 Then Return BootDrive'OS2\APPS\DLL'
+  Else Return BootDrive'ECS\DLL'
+
+/* Getting bootdrive letter (compatible with all versions Warp-like OS-es) */
+  GetBDrive:
+  buf=value('PATH',,'OS2ENVIRONMENT')
+  Parse upper value buf with left ':\OS2;' right
+  Return Right(left,1)
+</REXX>
+
 <PCK INDEX=1
-     PACKAGEID="Netlabs\lSwitcher Hook\2\8\0"
-     TARGET="?:\eCS\dll"
+     PACKAGEID="Netlabs\lSwitcher\Hook\2\8\1"
+     TARGET="=("HookPath")"
+     FIXED
      TITLE="lSwitcher Hook"
      SELECT
+     NODESELECT
      KILLPROCESS=lswhook.dll
-     
-     >This package contains the OS/2 "lSwitcher Hook" utility. 
-     
-     It must be installed in order for lSwitcher to 
-     function. If you are using the stand alone version 
-     of lSwither it can either be in the lSwitcher 
-     directory or in your LIB PATH. It defaults to 
-     eCS\dll. It must be in your LIB PATH if you wish 
+
+     >This package contains the OS/2 "lSwitcher Hook" utility.
+
+     It must be installed in order for lSwitcher to
+     function. If you are using the stand alone version
+     of lSwither it can either be in the lSwitcher
+     directory or in your LIB PATH. It defaults to
+     eCS\dll. It must be in your LIB PATH if you wish
      to use the X(E)workplace widget.
      </PCK>
 
@@ -29,6 +47,7 @@
      BASE
      TITLE="lSwitcher"
      SELECT
+     NODESELECT
      REQUIRES=1
      CREATEOBJECT="WPFolder|lSwitcher|<WP_DESKTOP>|OBJECTID=<LSWITCHER_FOLDER>"
      CREATEOBJECT="WPProgram|lSwitcher|<LSWITCHER_FOLDER>|EXENAME=$(2)\lswitch.exe;OBJECTID=<LSWITCHER>"
@@ -37,64 +56,81 @@
      CREATEOBJECT="WPProgram|History|<LSWITCHER_FOLDER>|EXENAME=E.EXE;PARAMETERS=$(2)\history;OBJECTID=<LSWITCHERHISTORY>;"
      CREATEOBJECT="WPProgram|GNU Public License|<LSWITCHER_FOLDER>|EXENAME=E.EXE;PARAMETERS=$(2)\copying;OBJECTID=<LSWITCHERLICENSE>;"
      CLEARPROFILE="USER\lSwitcher"
-     >This package contains the OS/2 "lSwitcher and 
-     the lSwitcher Xworkplace Widget" utility. 
-     
-     You can use one or the other not both. The widget 
-     can be found in the widgetsubdirectory. It must 
-     be copied to the plugins/xcenter directory in 
-     your X(E)workplace install tree. See the readme 
-     file for more details
+     >This package contains the OS/2 "lSwitcher" utility.
+
+     If you install lSwitcher and lSwitcher X(E)Workplace plugin,
+     you can use one or the other not both. See the readme
+     file for more details.
      </PCK>
-     
-     <PCK INDEX=3
-     PACKAGEID="Netlabs\lSwitcher NSL-CZ\2\8\1"
-     TARGET="$(WARPIN_DEFAULTTOOLSPATH)\lSwitcher"
+
+<PCK INDEX=3
+     PACKAGEID="Netlabs\lSwitcher\Xcenter plugin\2\8\1"
+     TARGET="=("XWPpath")"
+     FIXED
+     TITLE="lSwitcher Plugin for X(E)Center"
+     SELECT
+
+     >This package contains the OS/2 "lSwitcher X(E)Workplace plugin" utility.
+
+     If you install lSwitcher and lSwitcher X(E)Workplace plugin,
+     you can use one or the other not both. See the readme
+     file for more details.
+
+     </PCK>
+
+<GROUP TITLE="Localisations">
+<PCK INDEX=4
+     PACKAGEID="Netlabs\lSwitcher\NSL-CZ\2\8\1"
+     TARGET="$(2)"
+     FIXED
      TITLE="lSwitcher CZ language"
      REQUIRES=2
-     >This package contains the OS/2 "lSwitcher CZ language" resources. 
-     
-     It must be installed in the same directory as 
-     lSwitcher or in the xcenter plugin directory for 
-     use with the X(E)workplace widget.
-     </PCK>
-     
-     <PCK INDEX=4
-     PACKAGEID="Netlabs\lSwitcher NSL-RU\2\8\1"
-     TARGET="$(WARPIN_DEFAULTTOOLSPATH)\lSwitcher"
-     TITLE="lSwitcher RU language"
-     REQUIRES=2
-     >This package contains the OS/2 "lSwitcher RU language" resources. 
-     
-     It must be installed in the same directory as 
-     lSwitcher or in the xcenter plugin directory for 
-     use with the X(E)workplace widget.
-     </PCK>
-     
-     <PCK INDEX=5
-     PACKAGEID="Netlabs\lSwitcher NSL-DE\2\8\1"
-     TARGET="$(WARPIN_DEFAULTTOOLSPATH)\lSwitcher"
-     TITLE="lSwitcher DE language"
-     REQUIRES=2
-     >This package contains the OS/2 "lSwitcher DE language" resources. 
-     
-     It must be installed in the same directory as 
-     lSwitcher or in the xcenter plugin directory for 
-     use with the X(E)workplace widget.
-     </PCK>
-     
-     <PCK INDEX=6
-     PACKAGEID="Netlabs\lSwitcher NSL-ES\2\8\1"
-     TARGET="$(WARPIN_DEFAULTTOOLSPATH)\lSwitcher"
-     TITLE="lSwitcher ES language"
-     REQUIRES=2
-     >This package contains the OS/2 "lSwitcher ES language" resources. 
-     
-     It must be installed in the same directory as 
-     lSwitcher or in the xcenter plugin directory for 
+     >This package contains the OS/2 "lSwitcher CZ language" resources.
+
+     It must be installed in the same directory as
+     lSwitcher or in the xcenter plugin directory for
      use with the X(E)workplace widget.
      </PCK>
 
+<PCK INDEX=5
+     PACKAGEID="Netlabs\lSwitcher\NSL-RU\2\8\1"
+     TARGET="$(2)"
+     FIXED
+     TITLE="lSwitcher RU language"
+     REQUIRES=2
+     >This package contains the OS/2 "lSwitcher RU language" resources.
+
+     It must be installed in the same directory as
+     lSwitcher or in the xcenter plugin directory for
+     use with the X(E)workplace widget.
+     </PCK>
+
+<PCK INDEX=6
+     PACKAGEID="Netlabs\lSwitcher\NSL-DE\2\8\1"
+     TARGET="$(2)\lSwitcher"
+     FIXED
+     TITLE="lSwitcher DE language"
+     REQUIRES=2
+     >This package contains the OS/2 "lSwitcher DE language" resources.
+
+     It must be installed in the same directory as
+     lSwitcher or in the xcenter plugin directory for
+     use with the X(E)workplace widget.
+     </PCK>
+
+<PCK INDEX=7
+     PACKAGEID="Netlabs\lSwitcher\NSL-ES\2\8\1"
+     TARGET="$(2)\lSwitcher"
+     FIXED
+     TITLE="lSwitcher ES language"
+     REQUIRES=2
+     >This package contains the OS/2 "lSwitcher ES language" resources.
+
+     It must be installed in the same directory as
+     lSwitcher or in the xcenter plugin directory for
+     use with the X(E)workplace widget.
+     </PCK>
+</GROUP>
 </HEAD>
 
 <!-- Here come the different pages. They are linked by
@@ -120,21 +156,20 @@
 <NEXTBUTTON TARGET=4>~Next</NEXTBUTTON>
 <TEXT>Installation notes</TEXT>
 <README>
- This install does not install the XWorkPlace widget to the xcenter plugin 
- directory X(E)workplaceroot\PLUGINS\XCENTER. We don't because the stand 
- alone version will not run if the widget is in the xcenter plugin directory 
- and xcenter is open. This is true even if the widget has not been created. 
- For this reason the files required for the widget to work properly are 
- placed in lSwitcherinstalldirectoy\widget. In order to use the widget you 
- must close xcenter and copy all the files in lSwitcherinstalldirectoy\widget 
- to X(E)workplaceroot\PLUGINS\XCENTER restart xcenter and create the 
- lSwitcher widget. You should remove the "widow list" widget before doing 
- this as the "window list" widget serves the same purpose as lSwitcher but 
+ This install does not install the XWorkPlace widget to the xcenter plugin
+ directory X(E)workplaceroot\PLUGINS\XCENTER. We don't because the stand
+ alone version will not run if the widget is in the xcenter plugin directory
+ and xcenter is open. This is true even if the widget has not been created.
+ For this reason the files required for the widget to work properly are
+ placed in lSwitcherinstalldirectoy\widget. In order to use the widget you
+ must close xcenter and copy all the files in lSwitcherinstalldirectoy\widget
+ to X(E)workplaceroot\PLUGINS\XCENTER restart xcenter and create the
+ lSwitcher widget. You should remove the "widow list" widget before doing
+ this as the "window list" widget serves the same purpose as lSwitcher but
  with less functionality.
 </README>
 </PAGE>
 
-<!-- The TYPE=CONTAINER will list the packages which can be installed. -->
 <PAGE INDEX=4 TYPE=CONTAINER>
 <NEXTBUTTON TARGET=5>~Next</NEXTBUTTON>
 <TEXT>Select your installation directory.</TEXT>
