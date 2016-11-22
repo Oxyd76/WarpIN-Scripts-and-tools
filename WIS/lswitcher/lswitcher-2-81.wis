@@ -11,7 +11,7 @@
   Call RxFuncAdd 'SysLoadFuncs', 'RexxUtil', 'SysLoadFuncs'
   Call SysLoadFuncs
   BootDrive=GetBDrive()':\'
-  Call SysFileTree BootDrive'ECS', 'Ecs', 'DO'
+  Call SysFileTree BootDrive'ECS', 'Ecs', 'DO', '*****'
   If Ecs.0=0 Then Return BootDrive'OS2\APPS\DLL'
   Else Return BootDrive'ECS\DLL'
 
@@ -69,13 +69,14 @@
      FIXED
      TITLE="lSwitcher Plugin for X(E)Center"
      SELECT
+     EXECUTE="$(2)\instwgt.cmd"
+     DEEXECUTE="$(2)\instwgt.cmd"
 
      >This package contains the OS/2 "lSwitcher X(E)Workplace plugin" utility.
 
      If you install lSwitcher and lSwitcher X(E)Workplace plugin,
      you can use one or the other not both. See the readme
      file for more details.
-
      </PCK>
 
 <GROUP TITLE="Localisations">
@@ -85,11 +86,9 @@
      FIXED
      TITLE="lSwitcher CZ language"
      REQUIRES=2
+     EXECUTE="$(2)\instwgt.cmd CZ"
+     DEEXECUTE="$(2)\instwgt.cmd CZ"
      >This package contains the OS/2 "lSwitcher CZ language" resources.
-
-     It must be installed in the same directory as
-     lSwitcher or in the xcenter plugin directory for
-     use with the X(E)workplace widget.
      </PCK>
 
 <PCK INDEX=5
@@ -98,11 +97,9 @@
      FIXED
      TITLE="lSwitcher RU language"
      REQUIRES=2
+     EXECUTE="$(2)\instwgt.cmd RU"
+     DEEXECUTE="$(2)\instwgt.cmd RU"
      >This package contains the OS/2 "lSwitcher RU language" resources.
-
-     It must be installed in the same directory as
-     lSwitcher or in the xcenter plugin directory for
-     use with the X(E)workplace widget.
      </PCK>
 
 <PCK INDEX=6
@@ -111,11 +108,9 @@
      FIXED
      TITLE="lSwitcher DE language"
      REQUIRES=2
+     EXECUTE="$(2)\instwgt.cmd DE"
+     DEEXECUTE="$(2)\instwgt.cmd DE"
      >This package contains the OS/2 "lSwitcher DE language" resources.
-
-     It must be installed in the same directory as
-     lSwitcher or in the xcenter plugin directory for
-     use with the X(E)workplace widget.
      </PCK>
 
 <PCK INDEX=7
@@ -124,19 +119,12 @@
      FIXED
      TITLE="lSwitcher ES language"
      REQUIRES=2
+     EXECUTE="$(2)\instwgt.cmd ES"
+     DEEXECUTE="$(2)\instwgt.cmd ES"
      >This package contains the OS/2 "lSwitcher ES language" resources.
-
-     It must be installed in the same directory as
-     lSwitcher or in the xcenter plugin directory for
-     use with the X(E)workplace widget.
      </PCK>
 </GROUP>
 </HEAD>
-
-<!-- Here come the different pages. They are linked by
-     the <NEXTBUTTON> tags, which must have a target.
-     Each page must have a TYPE= attribute, which tells
-     WarpIn what will be visible on that page. -->
 
 <BODY>
 
@@ -152,30 +140,12 @@
 <README EXTRACTFROMPCK="2">copying</README>
 </PAGE>
 
-<PAGE INDEX=3 TYPE=README>
+<PAGE INDEX=3 TYPE=CONTAINER>
 <NEXTBUTTON TARGET=4>~Next</NEXTBUTTON>
-<TEXT>Installation notes</TEXT>
-<README>
- This install does not install the XWorkPlace widget to the xcenter plugin
- directory X(E)workplaceroot\PLUGINS\XCENTER. We don't because the stand
- alone version will not run if the widget is in the xcenter plugin directory
- and xcenter is open. This is true even if the widget has not been created.
- For this reason the files required for the widget to work properly are
- placed in lSwitcherinstalldirectoy\widget. In order to use the widget you
- must close xcenter and copy all the files in lSwitcherinstalldirectoy\widget
- to X(E)workplaceroot\PLUGINS\XCENTER restart xcenter and create the
- lSwitcher widget. You should remove the "widow list" widget before doing
- this as the "window list" widget serves the same purpose as lSwitcher but
- with less functionality.
-</README>
-</PAGE>
-
-<PAGE INDEX=4 TYPE=CONTAINER>
-<NEXTBUTTON TARGET=5>~Next</NEXTBUTTON>
 <TEXT>Select your installation directory.</TEXT>
 </PAGE>
 
-<PAGE INDEX=5 TYPE=CONFIGURE>
+<PAGE INDEX=4 TYPE=CONFIGURE>
 <NEXTBUTTON TARGET=0>I~nstall</NEXTBUTTON>
 <TEXT>Please select/deselect the desired configuration option(s).</TEXT>
 </PAGE>

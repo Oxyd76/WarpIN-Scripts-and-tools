@@ -1,5 +1,5 @@
-Working model of WarINning ;-)
-==============================
+Working model of WarpINning ;-)
+===============================
 
 Every package in WarpIn Script (wis) have a numbered index.
 Idea of working model: Before compiling wpi archive, content of every package
