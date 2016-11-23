@@ -1,25 +1,34 @@
 /* Install / Uninstall localisations for widget */
 
-LNG = ''
-Parse upper arg LNG
-Say LNG
-If LNG = '' Then LNG = EN
-rc = stream(XWPPath()'\lswres'LNG'.dll', 'C', 'Query Exists')
-If rc = '' Then Do
-  If LNG = 'EN' Then Do
-    Address CMD "@copy lswitch.hlp "XWPPath()" 2>&1 > NUL"
+Parse upper arg Path Type LNG
+If Path = '' Then Call Usage
+If Type = '' Then Call Usage
+If LNG = '' Then Call Usage
+Select
+  When Type = 'I' Then Do
+    If LNG = 'EN' Then Do
+      Address CMD "@copy lswitch.hlp "Strip(Path, 'T', '\')"\ 2>&1 > NUL"
+      Address CMD "@copy lswitch.sym "Strip(Path, 'T', '\')"\ 2>&1 > NUL"
+      Address CMD "@copy lswitch.xqs "Strip(Path, 'T', '\')"\ 2>&1 > NUL"
+    End
+    Address CMD "@copy lswres"LNG".dll "Strip(Path, 'T', '\')"\ 2>&1 > NUL"
+    Say '['LNG']=============> INSTALLED <================='
   End
-  Address CMD "@copy lswres"LNG".dll "XWPPath()" 2>&1 > NUL"
-  Say '['LNG']=============> INSTALLED <================='
-End
-Else Do
-  If LNG = 'EN' Then Do
-    Address CMD "@del "XWPPath()"\lswitch.hlp 2>&1 > NUL"
+  When Type = 'U' Then Do
+    If LNG = 'EN' Then Do
+      Address CMD "@del "Strip(Path, 'T', '\')"\lswitch.hlp 2>&1 > NUL"
+      Address CMD "@del "Strip(Path, 'T', '\')"\lswitch.sym 2>&1 > NUL"
+      Address CMD "@del "Strip(Path, 'T', '\')"\lswitch.xqs 2>&1 > NUL"
+    End
+    Address CMD "@"Directory()"\unlock "Strip(Path, 'T', '\')"\lswres"LNG".dll 2>&1 > NUL"
+    Address CMD "@del "Strip(Path, 'T', '\')"\lswres"LNG".dll 2>&1 > NUL"
+    Say '['LNG']============> UNINSTALLED <================'
   End
-  Address CMD "@del "XWPPath()"\lswres"LNG".dll 2>&1 > NUL"
-  Say '['LNG']============> UNINSTALLED <================'
+Otherwise Call Usage
 End
 Exit
 
-XWPPath:
-Return Strip(SysIni('User', 'XWorkplace', 'XFolderPath'), 'T',X2C(0))'\PLUGINS\XCENTER'
+Usage:
+Say 'InstWgt.cmd uses from install/uninstall from WarpIN'
+Say 'Usage: <Path to $XWP\plugins\XCenter> <U|I> <LNG>'
+Exit 10

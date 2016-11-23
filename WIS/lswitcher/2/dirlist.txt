@@ -9,3 +9,4 @@ lswresEN.dll
 Readme
 readme.v270
 readme.v271
+unlock.exe

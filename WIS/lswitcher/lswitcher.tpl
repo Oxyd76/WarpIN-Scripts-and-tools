@@ -19,7 +19,7 @@
 </REXX>
 
 <PCK INDEX=1
-     PACKAGEID="Netlabs\lSwitcher\Hook\2\8\1"
+     PACKAGEID="Netlabs\lSwitcher\Hook\$REV$"
      TARGET="=("HookPath")"
      FIXED
      TITLE="lSwitcher Hook"
@@ -38,7 +38,7 @@
      </PCK>
 
 <PCK INDEX=2
-     PACKAGEID="Netlabs\lSwitcher\Base\2\8\1"
+     PACKAGEID="Netlabs\lSwitcher\Base\$REV$"
      TARGET="$(WARPIN_DEFAULTTOOLSPATH)\lSwitcher"
      BASE
      TITLE="lSwitcher"
@@ -60,7 +60,7 @@
      </PCK>
 
 <PCK INDEX=3
-     PACKAGEID="Netlabs\lSwitcher\Xcenter plugin\2\8\1"
+     PACKAGEID="Netlabs\lSwitcher\Xcenter plugin\$REV$"
      TARGET="$(Ulrich M”ller\XWorkplace\Kernel)\plugins\xcenter"
      FIXED
      TITLE="lSwitcher Plugin for X(E)Center"
@@ -79,7 +79,7 @@
 
 <GROUP TITLE="Localisations">
 <PCK INDEX=4
-     PACKAGEID="Netlabs\lSwitcher\NSL-CZ\2\8\1"
+     PACKAGEID="Netlabs\lSwitcher\NSL-CZ\$REV$"
      TARGET="$(2)"
      FIXED
      TITLE="lSwitcher CZ language"
@@ -90,7 +90,7 @@
      </PCK>
 
 <PCK INDEX=5
-     PACKAGEID="Netlabs\lSwitcher\NSL-RU\2\8\1"
+     PACKAGEID="Netlabs\lSwitcher\NSL-RU\$REV$"
      TARGET="$(2)"
      FIXED
      TITLE="lSwitcher RU language"
@@ -101,7 +101,7 @@
      </PCK>
 
 <PCK INDEX=6
-     PACKAGEID="Netlabs\lSwitcher\NSL-DE\2\8\1"
+     PACKAGEID="Netlabs\lSwitcher\NSL-DE\$REV$"
      TARGET="$(2)\lSwitcher"
      FIXED
      TITLE="lSwitcher DE language"
@@ -112,7 +112,7 @@
      </PCK>
 
 <PCK INDEX=7
-     PACKAGEID="Netlabs\lSwitcher\NSL-ES\2\8\1"
+     PACKAGEID="Netlabs\lSwitcher\NSL-ES\$REV$"
      TARGET="$(2)\lSwitcher"
      FIXED
      TITLE="lSwitcher ES language"
